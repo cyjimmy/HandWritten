@@ -30,5 +30,12 @@ docker push your-ecr-repository-uri/your-repository-name:latest
 ### 6. **Create AWS Lambda Function Using Image:**
 Set up an AWS Lambda function using the Docker image.
 
+### 6. **Create a seperate Lambda Function for authentication:**
+Set up a seperate Lambda function using AWS console. Copy and paste the code from authentication.py to the new function.
+
 ### 7. **Create Lambda Function URL:**
-Create URL for the Lambda function.
+Create URL for the authentication lambda function. This function will check API key and invoke the processing function if request is authorized.
+
+## Others:
+Refer to AWS documentation on how to use docker image to create lambda function.
+https://docs.aws.amazon.com/lambda/latest/dg/python-image.html#python-image-instructions
