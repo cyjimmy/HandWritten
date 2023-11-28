@@ -13,11 +13,14 @@ def handler(event, context):
     body = json.loads(event['body'])
     url = body['url']
     try:
+        # Process image
         image = Image.open(requests.get(url, stream=True).raw).convert("RGB")
         pixel_values = processor(images=image, return_tensors="pt").pixel_values
 
+        # Generate text
         generated_ids = model.generate(pixel_values, max_length=128)
         generated_text = processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
+        
         # Return the response
         response = {
             "statusCode": 200,
@@ -30,7 +33,7 @@ def handler(event, context):
             "body": json.dumps({'result': generated_text})
         }
     except Exception as e:
-        print(e)
+        # Error handling
         response = {
             "statusCode": 500,
             "headers": {
