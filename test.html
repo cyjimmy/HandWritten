@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="input" placeholder="image url">
+    <button id="btn">Submit</button>
+    <div id="output"></div>
+    <script>
+        const endpoint = "https://7mlg8l0ut7.execute-api.us-east-1.amazonaws.com/analyse"
+        const input = document.getElementById('input');
+        const btn = document.getElementById('btn');
+        const output = document.getElementById('output');
+        btn.onclick = () => {
+            output.innerHTML = "Loading...";
+            http = new XMLHttpRequest();
+            http.open("POST", endpoint, true);
+            http.setRequestHeader("Content-type", "application/json");
+            http.setRequestHeader("Authorization", "vZJWqT2qaYaNOLACfsbju9MrSpnCHeTE9dxbMSqo");
+            http.onreadystatechange = () => {
+                if (http.readyState == 4 && http.status == 200) {
+                    output.innerHTML = http.responseText;
+                }
+                else if (http.readyState == 4 && http.status != 200) {
+                    output.innerHTML = http.responseText;
+                }
+            }
+            http.send(JSON.stringify({url: input.value}));
+        }
+    </script>
+</body>
+</html>
